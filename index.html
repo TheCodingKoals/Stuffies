@@ -72,20 +72,21 @@
     }
 
     function populateStuffiesTable(stuffies) {
-      const tbody = document.getElementById('stuffiesTableBody');
-      let birthday = formatBirthday(stuffy.Birthday);
-      stuffies.forEach(stuffy => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td class="p-3">${stuffy.Name}</td>
-          <td class="p-3">${stuffy.Species}</td>
-          <td class="p-3">${stuffy.Color}</td>
-          <td class="p-3">${birthday}</td>
-          <td class="p-3"><a href="stuffy.html?id=${stuffy.ID}" class="text-blue-500 underline">View</a></td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
+  const tbody = document.getElementById('stuffiesTableBody');
+  stuffies.forEach(stuffy => {
+    const birthday = formatBirthday(stuffy.Birthday); // ← Correct placement
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="p-3">${stuffy.Name}</td>
+      <td class="p-3">${stuffy.Species}</td>
+      <td class="p-3">${stuffy.Color}</td>
+      <td class="p-3">${birthday}</td>
+      <td class="p-3"><a href="stuffy.html?id=${stuffy.ID}" class="text-blue-500 underline">View</a></td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
   </script>
 </body>
 </html>
