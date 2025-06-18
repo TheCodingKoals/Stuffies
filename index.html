@@ -66,15 +66,21 @@
       });
     }
 
+    function formatBirthday(rawDate) {
+      const date = new Date(rawDate);
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
     function populateStuffiesTable(stuffies) {
       const tbody = document.getElementById('stuffiesTableBody');
+      let birthday = formatBirthday(stuffy.Birthday);
       stuffies.forEach(stuffy => {
         const row = document.createElement('tr');
         row.innerHTML = `
           <td class="p-3">${stuffy.Name}</td>
           <td class="p-3">${stuffy.Species}</td>
           <td class="p-3">${stuffy.Color}</td>
-          <td class="p-3">${stuffy.Birthday}</td>
+          <td class="p-3">${birthday}</td>
           <td class="p-3"><a href="stuffy.html?id=${stuffy.ID}" class="text-blue-500 underline">View</a></td>
         `;
         tbody.appendChild(row);
