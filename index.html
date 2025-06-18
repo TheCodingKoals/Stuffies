@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stuffies Collection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-800">
+  <div class="container mx-auto px-4 py-6">
+    <h1 class="text-4xl font-bold text-center mb-8">Our Registered Stuffies</h1>
+
+    <!-- Random Gallery -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Random Featured Stuffies</h2>
+      <div id="randomGallery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+    </section>
+
+    <!-- Full Table -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">All Stuffies</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead class="bg-gray-200 text-left">
+            <tr>
+              <th class="p-3">Name</th>
+              <th class="p-3">Species</th>
+              <th class="p-3">Color</th>
+              <th class="p-3">Birthday</th>
+              <th class="p-3">View</th>
+            </tr>
+          </thead>
+          <tbody id="stuffiesTableBody" class="divide-y"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxS6Yduh1mgr-LyTIL_YWAEKAPSfLpilnqFvJiMU4IeR1dSzs336Y5el_Wslsp4djlF/exec?action=doGet';
+
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(data => {
+        displayRandomGallery(data);
+        populateStuffiesTable(data);
+      });
+
+    function displayRandomGallery(stuffies) {
+      const container = document.getElementById('randomGallery');
+      const shuffled = [...stuffies].sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 4); // Change number as needed
+
+      selected.forEach(stuffy => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded shadow p-2';
+        card.setAttribute('data-aos', 'fade-up');
+        card.innerHTML = `
+          <img src="${stuffy['Image URL']}" alt="${stuffy.Name}" class="rounded h-40 w-full object-cover mb-2" />
+          <div class="text-center font-semibold">${stuffy.Name}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function populateStuffiesTable(stuffies) {
+      const tbody = document.getElementById('stuffiesTableBody');
+      stuffies.forEach(stuffy => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="p-3">${stuffy.Name}</td>
+          <td class="p-3">${stuffy.Species}</td>
+          <td class="p-3">${stuffy.Color}</td>
+          <td class="p-3">${stuffy.Birthday}</td>
+          <td class="p-3"><a href="stuffy.html?id=${stuffy.ID}" class="text-blue-500 underline">View</a></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>
