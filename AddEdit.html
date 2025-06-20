@@ -1,1 +1,31 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Account - The Stuffie Crew</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Your Account</h1>
+    <br>
+    <h2>Details</h2>
+    <p id="acctDetails"></p>
+    <br>
+    <br>
+    <h2>Your Stuffies</h2>
+    <button href="add.html">Add New Stuffie</button>
+    <br>
+    <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead class="bg-gray-200 text-left">
+            <tr>
+              <th class="p-3">Name</th>
+              <th class="p-3">Species</th>
+              <th class="p-3">Color</th>
+              <th class="p-3">Birthday</th>
+              <th class="p-3">View</th>
+            </tr>
+          </thead>
+          <tbody id="stuffiesTableBody" class="divide-y"></tbody>
+        </table>
+  </body>
+</html>
