@@ -9,6 +9,7 @@
 </head>
 <body class="bg-white text-gray-800">
   <div class="container mx-auto px-4 py-6">
+    <div id="LogIn"></div>
     <h1 class="text-4xl font-bold text-center mb-8">Our Registered Stuffies</h1>
 
     <!-- Random Gallery -->
@@ -39,6 +40,19 @@
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    let loggedIn = getCookie(logIn);
+
+    let userIn;
+    let passIn;
+
+    if (loggedIn == null)
+    {
+      updateUser("Log In");
+    }  
+    else
+    {
+      updateUser("Welcome, " + loggedIn);
+    }  
     AOS.init();
     const API_URL = 'https://script.google.com/macros/s/AKfycbxS6Yduh1mgr-LyTIL_YWAEKAPSfLpilnqFvJiMU4IeR1dSzs336Y5el_Wslsp4djlF/exec';
 
@@ -86,6 +100,50 @@
     tbody.appendChild(row);
   });
 }
+
+    function setCookie(name, value, days) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString(); // days → milliseconds
+  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+}
+
+function getCookie(name) {
+  const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
+    const [key, val] = cookie.split('=');
+    acc[decodeURIComponent(key)] = decodeURIComponent(val);
+    return acc;
+  }, {});
+  return cookies[name];
+}
+
+    function deleteCookie(name) {
+  document.cookie = `${encodeURIComponent(name)}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+}
+
+    window.addEventListener('unload', function () {
+  // Send data to server, clear timers, save state, etc.
+  console.log("Page is unloading...");
+      deleteCookie(logIn);
+});
+
+    function updateUser(text)
+      {
+        const div = document.getElementByID('LogIn');
+        if (text = "Log In")
+        {
+          const button = div.createElement('button');
+          button.id = "logInButton";
+          button.innerHTML = text;
+        } 
+        else
+        {
+          const words = div.createElement('h1');
+          words.innerHTML = text;
+        } 
+      } 
+
+    document.getElementById('myButton').addEventListener('click', function () {
+    //Add login code here
+  });
 
   </script>
 </body>
